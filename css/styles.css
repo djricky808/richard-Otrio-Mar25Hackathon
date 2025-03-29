@@ -9,7 +9,7 @@
   --blue: #00f8ff;
 }
 
-* {
+body {
   margin: 0;
   background-color: var(--page-background-color);
 }
@@ -18,7 +18,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 50px;
+  margin: 10px 50px;
 }
 
 h1 {
@@ -37,4 +37,20 @@ a {
 
 a:hover {
   color: blue;
+}
+
+.gameboard {
+  display: grid;
+  background-color: black;
+  height: 700px;
+  width: 900px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.player-pieces,
+.main-board {
+  color: var(--board-color);
 }
