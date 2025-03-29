@@ -1,0 +1,17 @@
+const gameGrid = [
+  [
+    [["A 1 PEG"], ["A 1 IRING"], ["A 1 ORING"]],
+    [["B 1 PEG"], ["B 1 IRING"], ["B 1 ORING"]],
+    [["C 1 PEG"], ["C 1 IRING"], ["C 1 ORING"]],
+  ],
+  [
+    [["A 2 PEG"], ["A 2 IRING"], ["A 2 ORING"]],
+    [["B 2 PEG"], ["B 2 IRING"], ["B 2 ORING"]],
+    [["C 2 PEG"], ["C 2 IRING"], ["C 2 ORING"]],
+  ],
+  [
+    [["A 3 PEG"], ["A 3 IRING"], ["A 3 ORING"]],
+    [["B 3 PEG"], ["B 3 IRING"], ["B 3 ORING"]],
+    [["C 3 PEG"], ["C 3 IRING"], ["C 3 ORING"]],
+  ],
+];

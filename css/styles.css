@@ -69,7 +69,7 @@ a:hover {
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
-  gap: 30px;
+  gap: 50px;
 }
 
 .main-top,
@@ -77,11 +77,16 @@ a:hover {
 .main-bottom {
   display: flex;
   justify-content: space-evenly;
-  gap: 30px;
 }
 
 .ring-cell {
   position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.main-board .ring-cell:hover {
+  background-color: var(--page-background-color);
 }
 
 .peg,
