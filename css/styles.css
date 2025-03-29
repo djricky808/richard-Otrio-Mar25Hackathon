@@ -109,6 +109,12 @@ a:hover {
   justify-content: space-evenly;
 }
 
+.red-side,
+.green-side {
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
 .purple-side {
   grid-column: 2/5;
   grid-row: 1/2;
@@ -135,4 +141,27 @@ a:hover {
 
 .outer-purple {
   border-color: var(--purple);
+}
+
+.inner-blue {
+  background-color: var(--blue);
+}
+
+.outer-blue {
+  border-color: var(--blue);
+}
+
+.inner-red {
+  background-color: var(--red);
+}
+
+.outer-red {
+  border-color: var(--red);
+}
+.inner-green {
+  background-color: var(--green);
+}
+
+.outer-green {
+  border-color: var(--green);
 }
