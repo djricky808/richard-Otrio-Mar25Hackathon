@@ -66,6 +66,18 @@ a:hover {
 .main-board {
   grid-column: 2/5;
   grid-row: 2/5;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.main-top,
+.main-middle,
+.main-bottom {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 30px;
 }
 
 .ring-cell {
@@ -101,7 +113,7 @@ a:hover {
 
 .player-pieces {
   display: flex;
-  gap: 10px;
+  gap: 30px;
 }
 
 .purple-side,
@@ -164,4 +176,11 @@ a:hover {
 
 .outer-green {
   border-color: var(--green);
+}
+.inner-open {
+  background-color: var(--empty-ring-color);
+}
+
+.outer-open {
+  border-color: var(--empty-ring-color);
 }
