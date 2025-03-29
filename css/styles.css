@@ -2,6 +2,8 @@
   /*Color Swatches*/
   --page-background-color: #ffdcb9;
   --board-color: #d18f4c;
+  --off-grid-board-color: #473a2d;
+  --border-grid-board-color: #473421;
   --empty-ring-color: #b97e44;
   --purple: #663399;
   --green: #2aff00;
@@ -41,16 +43,96 @@ a:hover {
 
 .gameboard {
   display: grid;
-  background-color: black;
+  grid-template-columns: repeat(5, 140px);
+  grid-template-rows: repeat(5, 140px);
+  background-color: var(--off-grid-board-color);
   height: 700px;
-  width: 900px;
+  width: 700px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+  border: 10px solid black;
+}
+
+.player-pieces,
+.main-board {
+  background-color: var(--board-color);
+  border-radius: 40px;
+  border: 5px solid var(--border-grid-board-color);
+}
+
+.main-board {
+  grid-column: 2/5;
+  grid-row: 2/5;
+}
+
+.ring-cell {
+  position: relative;
+}
+
+.peg,
+.small-ring,
+.large-ring {
+  border-radius: 50%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-.player-pieces,
-.main-board {
-  color: var(--board-color);
+.peg {
+  width: 20px;
+  height: 20px;
+}
+
+.small-ring {
+  border: 10px solid;
+  width: 40px;
+  height: 40px;
+}
+
+.large-ring {
+  border: 10px solid;
+  width: 75px;
+  height: 75px;
+}
+
+.player-pieces {
+  display: flex;
+  gap: 10px;
+}
+
+.purple-side,
+.blue-side {
+  justify-content: space-evenly;
+}
+
+.purple-side {
+  grid-column: 2/5;
+  grid-row: 1/2;
+}
+
+.green-side {
+  grid-column: 1/2;
+  grid-row: 2/5;
+}
+
+.blue-side {
+  grid-column: 2/5;
+  grid-row: 5;
+}
+
+.red-side {
+  grid-column: 5;
+  grid-row: 2/5;
+}
+
+.inner-purple {
+  background-color: var(--purple);
+}
+
+.outer-purple {
+  border-color: var(--purple);
 }
