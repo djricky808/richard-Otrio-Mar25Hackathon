@@ -45,7 +45,3 @@ const resetPiecesStock = () => {
     purpleOring =
       3;
 };
-
-resetPiecesStock();
-purpleIring--;
-console.log(purpleIring);
