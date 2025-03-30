@@ -1,3 +1,17 @@
+// Iring = inner ring (small), O = outer ring (large)
+let bluePeg,
+  blueIring,
+  blueORing,
+  greenPeg,
+  greenIring,
+  greenOring,
+  redPeg,
+  redIring,
+  redOring,
+  purplePeg,
+  purpleIring,
+  purpleOring;
+
 const gameGrid = [
   [
     [["A 1 PEG"], ["A 1 IRING"], ["A 1 ORING"]],
@@ -15,3 +29,23 @@ const gameGrid = [
     [["C 3 PEG"], ["C 3 IRING"], ["C 3 ORING"]],
   ],
 ];
+
+const resetPiecesStock = () => {
+  bluePeg =
+    blueIring =
+    blueORing =
+    greenPeg =
+    greenIring =
+    greenOring =
+    redPeg =
+    redIring =
+    redOring =
+    purplePeg =
+    purpleIring =
+    purpleOring =
+      3;
+};
+
+resetPiecesStock();
+purpleIring--;
+console.log(purpleIring);
