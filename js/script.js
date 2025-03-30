@@ -12,6 +12,8 @@ let bluePeg,
   purpleIring,
   purpleOring;
 
+let playersTurn = ["blue", "green", "purple", "red"];
+
 const gameGrid = [
   [
     [["A 1 PEG"], ["A 1 IRING"], ["A 1 ORING"]],
