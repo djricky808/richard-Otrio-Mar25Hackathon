@@ -69,7 +69,6 @@ a:hover {
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
-  gap: 50px;
 }
 
 .main-top,
@@ -81,8 +80,11 @@ a:hover {
 
 .ring-cell {
   position: relative;
-  width: 100%;
-  height: 100%;
+}
+
+.main-board .ring-cell {
+  height: 100px;
+  width: 100px;
 }
 
 .main-board .ring-cell:hover {
