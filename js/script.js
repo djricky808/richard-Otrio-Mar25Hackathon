@@ -14,6 +14,11 @@ let bluePeg,
 
 let playersTurn = ["blue", "green", "purple", "red"];
 
+//Query Selectors
+const mainCells = document.querySelectorAll(".main-board .ring-cell");
+const pickAPieceMessage = document.getElementById("pick-a-piece");
+let pieceCards = document.querySelectorAll(".piece-card");
+
 const gameGrid = [
   [
     [["A 1 PEG"], ["A 1 IRING"], ["A 1 ORING"]],
@@ -47,3 +52,26 @@ const resetPiecesStock = () => {
     purpleOring =
       3;
 };
+
+mainCells.forEach((cell) => {
+  cell.addEventListener("click", () => {
+    selectionScreen(cell);
+  });
+});
+
+function selectionScreen(cell) {
+  showPieceSelectScreen();
+  pieceCards.forEach((piece) => {
+    piece.addEventListener("click", () => {
+      hidePieceSelectScreen();
+    });
+  });
+}
+
+function showPieceSelectScreen() {
+  pickAPieceMessage.classList.remove("hidden");
+}
+
+function hidePieceSelectScreen() {
+  pickAPieceMessage.classList.add("hidden");
+}
