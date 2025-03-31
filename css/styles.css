@@ -11,6 +11,10 @@
   --blue: #00f8ff;
 }
 
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 body {
   margin: 0;
   background-color: var(--page-background-color);
@@ -24,14 +28,12 @@ header {
 }
 
 h1 {
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 72px;
   font-weight: 800;
 }
 
 a {
   text-decoration: none;
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: 800;
   color: black;
   font-size: 30px;
@@ -39,6 +41,37 @@ a {
 
 a:hover {
   color: blue;
+}
+
+.hidden {
+  display: none;
+}
+
+#pick-a-piece {
+  width: 90%;
+  height: 90%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 5px solid black;
+  border-radius: 10px;
+}
+
+#pick-a-piece h1 {
+  text-align: center;
+}
+
+.pieces-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.piece-card {
+  width: 30%;
+  height: 300px;
+  background-color: gold;
 }
 
 .gameboard {
