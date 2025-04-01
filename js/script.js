@@ -14,6 +14,7 @@ let bluePeg,
 
 let teamColors = ["blue", "green", "purple", "red"];
 let playersTurn = 0; //Start off with the blue player
+let selectedCell; //Assigns the cell to select
 //Query Selectors
 const mainCells = document.querySelectorAll(".main-board .ring-cell");
 const pickAPieceMessage = document.getElementById("pick-a-piece");
@@ -114,19 +115,23 @@ const resetPiecesStock = () => {
       3;
 };
 
-mainCells.forEach((cell) => {
+mainCells.forEach((cell, cellIndex) => {
   cell.addEventListener("click", () => {
-    selectionScreen(cell);
+    selectionScreen();
+    selectedCell = cellIndex;
+    color = teamColors[playersTurn];
   });
 });
 
-function selectionScreen(cell) {
-  showPieceSelectScreen();
-  pieceCards.forEach((piece) => {
-    piece.addEventListener("click", () => {
-      hidePieceSelectScreen();
-    });
+pieceCards.forEach((piece, pieceIndex) => {
+  piece.addEventListener("click", () => {
+    hidePieceSelectScreen();
+    changeRingColor(selectedCell, pieceIndex, color);
   });
+});
+
+function selectionScreen() {
+  showPieceSelectScreen();
 }
 
 function showPieceSelectScreen() {
@@ -135,4 +140,13 @@ function showPieceSelectScreen() {
 
 function hidePieceSelectScreen() {
   pickAPieceMessage.classList.add("hidden");
+}
+
+function changeRingColor(cellIndex, pieceIndex, color) {
+  let placeToPutPiece = 3 * cellIndex + pieceIndex;
+  console.log(placeToPutPiece);
+  console.log(pieceSpot[placeToPutPiece]);
+  pieceSpot[placeToPutPiece].dataset.chosenPiece = color;
+  pieceSpot[placeToPutPiece].classList.remove("outer-open");
+  pieceSpot[placeToPutPiece].classList.add(`outer-${color}`);
 }
