@@ -12,17 +12,14 @@ let bluePeg,
   purpleIring,
   purpleOring;
 
-let playersTurn = ["blue", "green", "purple", "red"];
-
+let teamColors = ["blue", "green", "purple", "red"];
+let playersTurn = 0; //Start off with the blue player
 //Query Selectors
 const mainCells = document.querySelectorAll(".main-board .ring-cell");
 const pickAPieceMessage = document.getElementById("pick-a-piece");
 let pieceCards = document.querySelectorAll(".piece-card");
 const pieceSpot = document.querySelectorAll(".piece-spot");
 
-pieceSpot.forEach((piece) => {
-  console.log(piece.dataset.piece);
-});
 // const gameGrid = [
 //   [
 //     [["A 1 PEG"], ["A 1 IRING"], ["A 1 ORING"]],
