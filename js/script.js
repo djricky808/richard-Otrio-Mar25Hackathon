@@ -117,7 +117,7 @@ const resetPiecesStock = () => {
 
 mainCells.forEach((cell, cellIndex) => {
   cell.addEventListener("click", () => {
-    selectionScreen();
+    showPieceSelectScreen();
     selectedCell = cellIndex;
     color = teamColors[playersTurn];
   });
@@ -130,10 +130,6 @@ pieceCards.forEach((piece, pieceIndex) => {
     startNextPlayersTurn();
   });
 });
-
-function selectionScreen() {
-  showPieceSelectScreen();
-}
 
 function showPieceSelectScreen() {
   pickAPieceMessage.classList.remove("hidden");
