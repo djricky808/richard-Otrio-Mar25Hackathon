@@ -127,6 +127,7 @@ pieceCards.forEach((piece, pieceIndex) => {
   piece.addEventListener("click", () => {
     hidePieceSelectScreen();
     changeRingColor(selectedCell, pieceIndex, color);
+    startNextPlayersTurn();
   });
 });
 
@@ -145,6 +146,19 @@ function hidePieceSelectScreen() {
 function changeRingColor(cellIndex, pieceIndex, color) {
   let placeToPutPiece = 3 * cellIndex + pieceIndex;
   pieceSpot[placeToPutPiece].dataset.piece = color;
-  pieceSpot[placeToPutPiece].classList.remove("outer-open");
-  pieceSpot[placeToPutPiece].classList.add(`outer-${color}`);
+  console.log(pieceCards[pieceIndex]);
+  if (pieceCards[pieceIndex].dataset.chosenpiece === "peg") {
+    pieceSpot[placeToPutPiece].classList.remove("inner-open");
+    pieceSpot[placeToPutPiece].classList.add(`inner-${color}`);
+  } else {
+    pieceSpot[placeToPutPiece].classList.remove("outer-open");
+    pieceSpot[placeToPutPiece].classList.add(`outer-${color}`);
+  }
+}
+
+function startNextPlayersTurn() {
+  playersTurn++;
+  if (playersTurn === teamColors.length) {
+    playersTurn = 0;
+  }
 }
