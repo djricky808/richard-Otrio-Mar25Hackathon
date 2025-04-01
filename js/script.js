@@ -144,9 +144,7 @@ function hidePieceSelectScreen() {
 
 function changeRingColor(cellIndex, pieceIndex, color) {
   let placeToPutPiece = 3 * cellIndex + pieceIndex;
-  console.log(placeToPutPiece);
-  console.log(pieceSpot[placeToPutPiece]);
-  pieceSpot[placeToPutPiece].dataset.chosenPiece = color;
+  pieceSpot[placeToPutPiece].dataset.piece = color;
   pieceSpot[placeToPutPiece].classList.remove("outer-open");
   pieceSpot[placeToPutPiece].classList.add(`outer-${color}`);
 }
