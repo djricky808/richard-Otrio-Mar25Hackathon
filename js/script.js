@@ -1,16 +1,39 @@
 // Iring = inner ring (small), O = outer ring (large)
-let bluePeg,
-  blueIring,
-  blueORing,
-  greenPeg,
-  greenIring,
-  greenOring,
-  redPeg,
-  redIring,
-  redOring,
-  purplePeg,
-  purpleIring,
-  purpleOring;
+// let bluePeg,
+//   blueIring,
+//   blueORing,
+//   greenPeg,
+//   greenIring,
+//   greenOring,
+//   redPeg,
+//   redIring,
+//   redOring,
+//   purplePeg,
+//   purpleIring,
+//   purpleOring;
+
+let piecesStock = {
+  blue: {
+    peg: 3,
+    smallRing: 3,
+    largeRing: 3,
+  },
+  green: {
+    peg: 3,
+    smallRing: 3,
+    largeRing: 3,
+  },
+  purple: {
+    peg: 3,
+    smallRing: 3,
+    largeRing: 3,
+  },
+  red: {
+    peg: 3,
+    smallRing: 3,
+    largeRing: 3,
+  },
+};
 
 let teamColors = ["blue", "green", "purple", "red"];
 let playersTurn = 0; //Start off with the blue player
@@ -187,17 +210,18 @@ function hidePieceSelectScreen() {
 
 function changeRingColor(cellIndex, pieceIndex, color) {
   let placeToPutPiece = 3 * cellIndex + pieceIndex;
-  const peiceToLay = pieceSpot[placeToPutPiece];
-  peiceToLay.dataset.piece = color;
+  const pieceToLay = pieceSpot[placeToPutPiece];
+  pieceToLay.dataset.piece = color;
   console.log(pieceCards[pieceIndex]);
   if (pieceCards[pieceIndex].dataset.chosenpiece === "peg") {
-    peiceToLay.classList.remove("inner-open");
-    peiceToLay.classList.add(`inner-${color}`);
+    pieceToLay.classList.remove("inner-open");
+    pieceToLay.classList.add(`inner-${color}`);
   } else {
-    peiceToLay.classList.remove("outer-open");
-    peiceToLay.classList.add(`outer-${color}`);
+    pieceToLay.classList.remove("outer-open");
+    pieceToLay.classList.add(`outer-${color}`);
   }
-  peiceToLay.disabled = true;
+
+  pieceToLay.disabled = true;
 }
 
 function startNextPlayersTurn() {
@@ -208,3 +232,5 @@ function startNextPlayersTurn() {
 }
 
 function checkForWins() {}
+
+function reduceStock() {}
