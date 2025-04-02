@@ -74,6 +74,10 @@ a:hover {
   background-color: gold;
 }
 
+.piece-card:disabled {
+  background-color: gray;
+}
+
 .gameboard {
   display: grid;
   grid-template-columns: repeat(5, 140px);

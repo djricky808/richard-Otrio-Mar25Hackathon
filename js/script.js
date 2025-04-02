@@ -18,8 +18,9 @@ let selectedCell; //Assigns the cell to select
 //Query Selectors
 const mainCells = document.querySelectorAll(".main-board .ring-cell");
 const pickAPieceMessage = document.getElementById("pick-a-piece");
-let pieceCards = document.querySelectorAll(".piece-card");
+const pieceCards = document.querySelectorAll(".piece-card");
 const pieceSpot = document.querySelectorAll(".piece-spot");
+const cancelBtn = document.getElementById("cancel");
 
 // const gameGrid = [
 //   [
@@ -120,6 +121,8 @@ mainCells.forEach((cell, cellIndex) => {
     showPieceSelectScreen();
     selectedCell = cellIndex;
     color = teamColors[playersTurn];
+    resetPieceSelection();
+    disablePieceSelection();
   });
 });
 
@@ -127,9 +130,52 @@ pieceCards.forEach((piece, pieceIndex) => {
   piece.addEventListener("click", () => {
     hidePieceSelectScreen();
     changeRingColor(selectedCell, pieceIndex, color);
+    disableRingCellSelection();
     startNextPlayersTurn();
   });
 });
+
+function disableRingCellSelection() {
+  mainCells.forEach((cell, cellIndex) => {
+    let currentCell = cellIndex * 3;
+    if (
+      pieceSpot[currentCell].dataset.piece !== "open" &&
+      pieceSpot[currentCell + 1].dataset.piece !== "open" &&
+      pieceSpot[currentCell + 2].dataset.piece !== "open"
+    ) {
+      console.log(cell, "disabled");
+      cell.style.pointerEvents = "none";
+    }
+  });
+}
+
+function enableRingCellSelection() {
+  mainCells.forEach((cell) => {
+    cell.style.pointerEvents = "auto";
+  });
+}
+
+function disablePieceSelection() {
+  let currentCell = selectedCell * 3;
+  console.log("disabled cell", currentCell);
+  for (let i = 0; i < pieceCards.length; i++) {
+    console.log(pieceSpot[currentCell + i].dataset.piece);
+    console.log(pieceCards[i]);
+    if (pieceSpot[currentCell + i].dataset.piece !== "open") {
+      console.log("Spot is already occupied!");
+      pieceCards[i].disabled = true;
+    }
+  }
+}
+
+function resetPieceSelection() {
+  pieceCards.forEach((card) => {
+    console.log(pieceCards);
+    card.disabled = false;
+  });
+}
+
+cancelBtn.addEventListener("click", () => hidePieceSelectScreen());
 
 function showPieceSelectScreen() {
   pickAPieceMessage.classList.remove("hidden");
@@ -141,15 +187,17 @@ function hidePieceSelectScreen() {
 
 function changeRingColor(cellIndex, pieceIndex, color) {
   let placeToPutPiece = 3 * cellIndex + pieceIndex;
-  pieceSpot[placeToPutPiece].dataset.piece = color;
+  const peiceToLay = pieceSpot[placeToPutPiece];
+  peiceToLay.dataset.piece = color;
   console.log(pieceCards[pieceIndex]);
   if (pieceCards[pieceIndex].dataset.chosenpiece === "peg") {
-    pieceSpot[placeToPutPiece].classList.remove("inner-open");
-    pieceSpot[placeToPutPiece].classList.add(`inner-${color}`);
+    peiceToLay.classList.remove("inner-open");
+    peiceToLay.classList.add(`inner-${color}`);
   } else {
-    pieceSpot[placeToPutPiece].classList.remove("outer-open");
-    pieceSpot[placeToPutPiece].classList.add(`outer-${color}`);
+    peiceToLay.classList.remove("outer-open");
+    peiceToLay.classList.add(`outer-${color}`);
   }
+  peiceToLay.disabled = true;
 }
 
 function startNextPlayersTurn() {
@@ -158,3 +206,5 @@ function startNextPlayersTurn() {
     playersTurn = 0;
   }
 }
+
+function checkForWins() {}
