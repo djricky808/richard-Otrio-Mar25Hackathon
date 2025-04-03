@@ -123,21 +123,28 @@ const winningPatterns = [
   [20, 13, 6],
 ];
 
-const resetPiecesStock = () => {
-  bluePeg =
-    blueIring =
-    blueORing =
-    greenPeg =
-    greenIring =
-    greenOring =
-    redPeg =
-    redIring =
-    redOring =
-    purplePeg =
-    purpleIring =
-    purpleOring =
-      3;
+const resetPiecesStock = (piecesStock) => {
+  for (let color in piecesStock) {
+    let pieces = piecesStock[color];
+    for (let piece in pieces) {
+      piecesStock[color][piece] = 3;
+    }
+  }
+  return piecesStock;
 };
+
+function clearBoard() {
+  for (let i = 0; i < pieceSpot.length; i++) {
+    pieceSpot[i].dataset.piece = "open";
+    pieceSpot[i].classList = `piece-spot ${
+      (i + 3) % 3 === 0
+        ? "peg"
+        : (i + 3) % 3 === 1
+        ? "small-ring"
+        : "large-ring"
+    } ${(i + 3) % 3 === 0 ? "inner-open" : "outer-open"}`;
+  }
+}
 
 mainCells.forEach((cell, cellIndex) => {
   cell.addEventListener("click", () => {
@@ -220,7 +227,6 @@ function changeRingColor(cellIndex, pieceIndex, color) {
     pieceToLay.classList.remove("outer-open");
     pieceToLay.classList.add(`outer-${color}`);
   }
-
   pieceToLay.disabled = true;
 }
 
