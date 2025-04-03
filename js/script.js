@@ -132,15 +132,15 @@ const winningPatterns = [
   [20, 13, 6],
 ];
 
-newGameBtn.addEventListener('click', () => startNewGame());
+newGameBtn.addEventListener("click", () => startNewGame());
 
-const startNewGame() {
+const startNewGame = () => {
   resetPiecesStock();
   clearBoard();
   enableRingCellSelection();
   playersTurn = 0;
-  winningMessageWindow.classList.add('hidden');
-}
+  winningMessageWindow.classList.add("hidden");
+};
 
 const resetPiecesStock = (piecesStock) => {
   for (let color in piecesStock) {
@@ -287,8 +287,10 @@ function checkForWins() {
 }
 
 function declareWinner(winningColor) {
-  winningMessageWindow.classList.remove('hidden');
-  winningHeadline.innerHTML = `${winningColor[0].toUpperCase()+winningColor.slice(1,winningColor.length)} Wins!`
+  winningMessageWindow.classList.remove("hidden");
+  winningHeadline.innerHTML = `${
+    winningColor[0].toUpperCase() + winningColor.slice(1, winningColor.length)
+  } Wins!`;
   disableAllRingCells();
 }
 
