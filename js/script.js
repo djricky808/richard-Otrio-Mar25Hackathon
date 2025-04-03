@@ -15,23 +15,23 @@
 let piecesStock = {
   blue: {
     peg: 3,
-    smallRing: 3,
-    largeRing: 3,
+    "small-ring": 3,
+    "large-ring": 3,
   },
   green: {
     peg: 3,
-    smallRing: 3,
-    largeRing: 3,
+    "small-ring": 3,
+    "large-ring": 3,
   },
   purple: {
     peg: 3,
-    smallRing: 3,
-    largeRing: 3,
+    "small-ring": 3,
+    "large-ring": 3,
   },
   red: {
     peg: 3,
-    smallRing: 3,
-    largeRing: 3,
+    "small-ring": 3,
+    "large-ring": 3,
   },
 };
 
@@ -44,6 +44,10 @@ const pickAPieceMessage = document.getElementById("pick-a-piece");
 const pieceCards = document.querySelectorAll(".piece-card");
 const pieceSpot = document.querySelectorAll(".piece-spot");
 const cancelBtn = document.getElementById("cancel");
+const bluePieces = document.querySelectorAll(".blue-side .blue-piece");
+const greenPieces = document.querySelectorAll(".green-side .green-piece");
+const redPieces = document.querySelectorAll(".red-side .red-piece");
+const purplePieces = document.querySelectorAll(".purple-side .purple-piece");
 
 // const gameGrid = [
 //   [
@@ -152,7 +156,7 @@ mainCells.forEach((cell, cellIndex) => {
     selectedCell = cellIndex;
     color = teamColors[playersTurn];
     resetPieceSelection();
-    disablePieceSelection();
+    disablePieceSelection(color);
   });
 });
 
@@ -185,7 +189,7 @@ function enableRingCellSelection() {
   });
 }
 
-function disablePieceSelection() {
+function disablePieceSelection(color) {
   let currentCell = selectedCell * 3;
   console.log("disabled cell", currentCell);
   for (let i = 0; i < pieceCards.length; i++) {
@@ -195,6 +199,14 @@ function disablePieceSelection() {
       console.log("Spot is already occupied!");
       pieceCards[i].disabled = true;
     }
+  }
+  let pieceIndex = 0;
+  for (let stock in piecesStock[color]) {
+    console.log(piecesStock[color][stock]);
+    if (piecesStock[color][stock] === 0) {
+      pieceCards[pieceIndex].disabled = true;
+    }
+    pieceIndex++;
   }
 }
 
@@ -228,6 +240,7 @@ function changeRingColor(cellIndex, pieceIndex, color) {
     pieceToLay.classList.add(`outer-${color}`);
   }
   pieceToLay.disabled = true;
+  reduceStock(color, pieceCards[pieceIndex].dataset.chosenpiece, pieceIndex);
 }
 
 function startNextPlayersTurn() {
@@ -239,4 +252,36 @@ function startNextPlayersTurn() {
 
 function checkForWins() {}
 
-function reduceStock() {}
+function reduceStock(color, piece, index) {
+  let removed = index + 1 + 3 * piecesStock[color][piece] - 4;
+  console.log("Removed", removed);
+  piecesStock[color][piece]--;
+  console.log(bluePieces[removed]);
+  if (color === "blue") {
+    bluePieces[removed].classList.remove(
+      index === 0 ? "inner-blue" : "outer-blue"
+    );
+    bluePieces[removed].classList.add(
+      index === 0 ? "inner-open" : "outer-open"
+    );
+  } else if (color === "green") {
+    greenPieces[removed].classList.remove(
+      index === 0 ? "inner-green" : "outer-green"
+    );
+    greenPieces[removed].classList.add(
+      index === 0 ? "inner-open" : "outer-open"
+    );
+  } else if (color === "red") {
+    redPieces[removed].classList.remove(
+      index === 0 ? "inner-red" : "outer-red"
+    );
+    redPieces[removed].classList.add(index === 0 ? "inner-open" : "outer-open");
+  } else if (color === "purple") {
+    purplePieces[removed].classList.remove(
+      index === 0 ? "inner-purple" : "outer-purple"
+    );
+    purplePieces[removed].classList.add(
+      index === 0 ? "inner-open" : "outer-open"
+    );
+  }
+}
