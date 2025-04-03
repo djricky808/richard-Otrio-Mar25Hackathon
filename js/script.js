@@ -12,8 +12,6 @@
 //   purpleIring,
 //   purpleOring;
 
-const { start } = require("repl");
-
 let piecesStock = {
   blue: {
     peg: 3,
