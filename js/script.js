@@ -41,9 +41,12 @@ let selectedCell; //Assigns the cell to select
 //Query Selectors
 const mainCells = document.querySelectorAll(".main-board .ring-cell");
 const pickAPieceMessage = document.getElementById("pick-a-piece");
+const winningMessageWindow = document.getElementById("win-message");
+const winningHeadline = document.querySelector("#win-message h1");
 const pieceCards = document.querySelectorAll(".piece-card");
 const pieceSpot = document.querySelectorAll(".piece-spot");
 const cancelBtn = document.getElementById("cancel");
+const newGameBtn = document.getElementById("new-game");
 const bluePieces = document.querySelectorAll(".blue-side .blue-piece");
 const greenPieces = document.querySelectorAll(".green-side .green-piece");
 const redPieces = document.querySelectorAll(".red-side .red-piece");
@@ -266,9 +269,12 @@ function checkForWins() {
       pieceSpot[p2].dataset.piece === pieceSpot[p3].dataset.piece
     ) {
       console.log(`${pieceSpot[p1].dataset.piece} wins!`);
+      declareWinner(pieceSpot[p1].dataset.piece);
     }
   });
 }
+
+function declareWinner(winningColor) {}
 
 function reduceStock(color, piece, index) {
   let removed = index + 1 + 3 * piecesStock[color][piece] - 4;
