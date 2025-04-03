@@ -164,6 +164,7 @@ pieceCards.forEach((piece, pieceIndex) => {
   piece.addEventListener("click", () => {
     hidePieceSelectScreen();
     changeRingColor(selectedCell, pieceIndex, color);
+    checkForWins();
     disableRingCellSelection();
     startNextPlayersTurn();
   });
@@ -250,7 +251,18 @@ function startNextPlayersTurn() {
   }
 }
 
-function checkForWins() {}
+function checkForWins() {
+  winningPatterns.forEach((pattern) => {
+    let [p1, p2, p3] = pattern;
+    if (
+      pieceSpot[p1].dataset.piece !== "open" &&
+      pieceSpot[p1].dataset.piece === pieceSpot[p2].dataset.piece &&
+      pieceSpot[p2].dataset.piece === pieceSpot[p3].dataset.piece
+    ) {
+      console.log(`${pieceSpot[p1].dataset.piece} wins!`);
+    }
+  });
+}
 
 function reduceStock(color, piece, index) {
   let removed = index + 1 + 3 * piecesStock[color][piece] - 4;
