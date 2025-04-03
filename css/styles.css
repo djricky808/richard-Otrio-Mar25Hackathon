@@ -63,6 +63,44 @@ a:hover {
   text-align: center;
 }
 
+#win-message {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 90%;
+  width: 90%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 10px solid black;
+  border-radius: 14px;
+  z-index: 100;
+}
+
+#win-message h1 {
+  text-align: center;
+}
+
+#new-game {
+  background-color: var(--off-grid-board-color);
+  color: white;
+  font-size: 30px;
+  font-weight: 800;
+  padding: 20px;
+  border: 5px solid black;
+  border-radius: 8px;
+  width: 50%;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+#new-game:hover {
+  background-color: var(--empty-ring-color);
+  color: black;
+}
+
 .pieces-container {
   display: flex;
   justify-content: space-evenly;
