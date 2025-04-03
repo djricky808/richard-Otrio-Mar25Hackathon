@@ -43,10 +43,6 @@ a:hover {
   color: blue;
 }
 
-.hidden {
-  display: none;
-}
-
 #pick-a-piece {
   width: 90%;
   height: 90%;
@@ -65,9 +61,6 @@ a:hover {
 
 #win-message {
   background-color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
   height: 90%;
   width: 90%;
   position: absolute;
@@ -81,6 +74,11 @@ a:hover {
 
 #win-message h1 {
   text-align: center;
+  margin: auto;
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, -50%);
 }
 
 #new-game {
@@ -92,13 +90,21 @@ a:hover {
   border: 5px solid black;
   border-radius: 8px;
   width: 50%;
-  margin: 0 auto;
+  margin: 0, auto;
   cursor: pointer;
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%, -50%);
 }
 
 #new-game:hover {
   background-color: var(--empty-ring-color);
   color: black;
+}
+
+.hidden {
+  display: none;
 }
 
 .pieces-container {
