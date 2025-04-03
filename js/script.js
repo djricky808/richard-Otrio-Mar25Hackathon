@@ -12,6 +12,8 @@
 //   purpleIring,
 //   purpleOring;
 
+const { start } = require("repl");
+
 let piecesStock = {
   blue: {
     peg: 3,
@@ -129,6 +131,16 @@ const winningPatterns = [
   [18, 13, 8],
   [20, 13, 6],
 ];
+
+newGameBtn.addEventListener('click', () => startNewGame());
+
+const startNewGame() {
+  resetPiecesStock();
+  clearBoard();
+  enableRingCellSelection();
+  playersTurn = 0;
+  winningMessageWindow.classList.add('hidden');
+}
 
 const resetPiecesStock = (piecesStock) => {
   for (let color in piecesStock) {
@@ -274,7 +286,11 @@ function checkForWins() {
   });
 }
 
-function declareWinner(winningColor) {}
+function declareWinner(winningColor) {
+  winningMessageWindow.classList.remove('hidden');
+  winningHeadline.innerHTML = `${winningColor[0].toUpperCase()+winningColor.slice(1,winningColor.length)} Wins!`
+  disableAllRingCells();
+}
 
 function reduceStock(color, piece, index) {
   let removed = index + 1 + 3 * piecesStock[color][piece] - 4;
