@@ -165,12 +165,12 @@ pieceCards.forEach((piece, pieceIndex) => {
     hidePieceSelectScreen();
     changeRingColor(selectedCell, pieceIndex, color);
     checkForWins();
-    disableRingCellSelection();
+    disableRingCellsThatAreFull();
     startNextPlayersTurn();
   });
 });
 
-function disableRingCellSelection() {
+function disableRingCellsThatAreFull() {
   mainCells.forEach((cell, cellIndex) => {
     let currentCell = cellIndex * 3;
     if (
@@ -181,6 +181,12 @@ function disableRingCellSelection() {
       console.log(cell, "disabled");
       cell.style.pointerEvents = "none";
     }
+  });
+}
+
+function disableAllRingCells() {
+  mainCells.forEach((cell) => {
+    cell.style.pointerEvents = "none";
   });
 }
 
