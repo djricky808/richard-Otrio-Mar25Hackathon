@@ -82,7 +82,8 @@ a:hover {
   transform: translate(-50%, -50%);
 }
 
-#new-game {
+.new-game,
+.cancel {
   background-color: var(--off-grid-board-color);
   color: white;
   font-size: 30px;
@@ -97,6 +98,10 @@ a:hover {
   left: 50%;
   top: 60%;
   transform: translate(-50%, -50%);
+}
+
+.cancel {
+  top: 80%;
 }
 
 #new-game:hover {

@@ -35,7 +35,7 @@ const pieceCards = document.querySelectorAll(".piece-card");
 const pieceSpot = document.querySelectorAll(".piece-spot");
 
 const cancelBtn = document.querySelectorAll(".cancel");
-const newGameBtn = document.getElementById("new-game");
+const newGameBtn = document.querySelectorAll(".new-game");
 const tutorialBtn = document.getElementById("tutorial");
 const restartBtn = document.getElementById("restart");
 
@@ -104,7 +104,11 @@ const winningPatterns = [
   [20, 13, 6],
 ];
 
-newGameBtn.addEventListener("click", () => startNewGame());
+newGameBtn.forEach((button) =>
+  button.addEventListener("click", () => {
+    startNewGame();
+  })
+);
 
 restartBtn.addEventListener("click", () => showRestartWarningScreen());
 
@@ -115,6 +119,7 @@ const startNewGame = () => {
   resetStockStyles();
   playersTurn = 0;
   winningMessageWindow.classList.add("hidden");
+  hideRestartWarningScreen();
 };
 
 const resetPiecesStock = (piecesStock) => {
