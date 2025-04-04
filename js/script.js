@@ -136,6 +136,7 @@ const startNewGame = () => {
   resetPiecesStock();
   clearBoard();
   enableRingCellSelection();
+  resetStockStyles();
   playersTurn = 0;
   winningMessageWindow.classList.add("hidden");
 };
@@ -176,7 +177,7 @@ mainCells.forEach((cell, cellIndex) => {
 pieceCards.forEach((piece, pieceIndex) => {
   piece.addEventListener("click", () => {
     hidePieceSelectScreen();
-    changeRingColor(selectedCell, pieceIndex, color);
+    placePieceOnBoard(selectedCell, pieceIndex, color);
     checkForWins();
     disableRingCellsThatAreFull();
     startNextPlayersTurn();
@@ -247,7 +248,7 @@ function hidePieceSelectScreen() {
   pickAPieceMessage.classList.add("hidden");
 }
 
-function changeRingColor(cellIndex, pieceIndex, color) {
+function placePieceOnBoard(cellIndex, pieceIndex, color) {
   let placeToPutPiece = 3 * cellIndex + pieceIndex;
   const pieceToLay = pieceSpot[placeToPutPiece];
   pieceToLay.dataset.piece = color;
@@ -324,4 +325,39 @@ function reduceStock(color, piece, index) {
       index === 0 ? "inner-open" : "outer-open"
     );
   }
+}
+
+function resetStockStyles() {
+  bluePieces.forEach((piece) => {
+    piece.classList.remove(
+      piece.classList.contains("peg") ? "inner-open" : "outer-open"
+    );
+    piece.classList.add(
+      piece.classList.contains("peg") ? "inner-blue" : "outer-blue"
+    );
+  });
+  greenPieces.forEach((piece) => {
+    piece.classList.remove(
+      piece.classList.contains("peg") ? "inner-open" : "outer-open"
+    );
+    piece.classList.add(
+      piece.classList.contains("peg") ? "inner-green" : "outer-green"
+    );
+  });
+  purplePieces.forEach((piece) => {
+    piece.classList.remove(
+      piece.classList.contains("peg") ? "inner-open" : "outer-open"
+    );
+    piece.classList.add(
+      piece.classList.contains("peg") ? "inner-purple" : "outer-purple"
+    );
+  });
+  redPieces.forEach((piece) => {
+    piece.classList.remove(
+      piece.classList.contains("peg") ? "inner-open" : "outer-open"
+    );
+    piece.classList.add(
+      piece.classList.contains("peg") ? "inner-red" : "outer-red"
+    );
+  });
 }
