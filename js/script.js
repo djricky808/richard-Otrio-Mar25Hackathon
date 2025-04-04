@@ -30,10 +30,11 @@ const mainCells = document.querySelectorAll(".main-board .ring-cell");
 const pickAPieceMessage = document.getElementById("pick-a-piece");
 const winningMessageWindow = document.getElementById("win-message");
 const winningHeadline = document.querySelector("#win-message h1");
+const restartWarning = document.getElementById("restart-warning");
 const pieceCards = document.querySelectorAll(".piece-card");
 const pieceSpot = document.querySelectorAll(".piece-spot");
 
-const cancelBtn = document.getElementById("cancel");
+const cancelBtn = document.querySelectorAll(".cancel");
 const newGameBtn = document.getElementById("new-game");
 const tutorialBtn = document.getElementById("tutorial");
 const restartBtn = document.getElementById("restart");
@@ -104,6 +105,8 @@ const winningPatterns = [
 ];
 
 newGameBtn.addEventListener("click", () => startNewGame());
+
+restartBtn.addEventListener("click", () => showRestartWarningScreen());
 
 const startNewGame = () => {
   resetPiecesStock();
@@ -211,7 +214,12 @@ function resetPieceSelection() {
   });
 }
 
-cancelBtn.addEventListener("click", () => hidePieceSelectScreen());
+cancelBtn.forEach((button) => {
+  button.addEventListener("click", () => {
+    hidePieceSelectScreen();
+    hideRestartWarningScreen();
+  });
+});
 
 function showPieceSelectScreen() {
   pickAPieceMessage.classList.remove("hidden");
@@ -219,6 +227,14 @@ function showPieceSelectScreen() {
 
 function hidePieceSelectScreen() {
   pickAPieceMessage.classList.add("hidden");
+}
+
+function showRestartWarningScreen() {
+  restartWarning.classList.remove("hidden");
+}
+
+function hideRestartWarningScreen() {
+  restartWarning.classList.add("hidden");
 }
 
 function placePieceOnBoard(cellIndex, pieceIndex, color) {
