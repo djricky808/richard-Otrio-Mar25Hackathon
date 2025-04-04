@@ -32,8 +32,12 @@ const winningMessageWindow = document.getElementById("win-message");
 const winningHeadline = document.querySelector("#win-message h1");
 const pieceCards = document.querySelectorAll(".piece-card");
 const pieceSpot = document.querySelectorAll(".piece-spot");
+
 const cancelBtn = document.getElementById("cancel");
 const newGameBtn = document.getElementById("new-game");
+const tutorialBtn = document.getElementById("tutorial");
+const restartBtn = document.getElementById("restart");
+
 const bluePieces = document.querySelectorAll(".blue-side .blue-piece");
 const greenPieces = document.querySelectorAll(".green-side .green-piece");
 const redPieces = document.querySelectorAll(".red-side .red-piece");
