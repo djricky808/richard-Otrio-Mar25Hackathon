@@ -43,7 +43,8 @@ a:hover {
   color: blue;
 }
 
-#pick-a-piece {
+#pick-a-piece,
+#restart-warning {
   width: 90%;
   height: 90%;
   position: absolute;
