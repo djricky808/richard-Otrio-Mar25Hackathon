@@ -273,7 +273,6 @@ function checkForWins() {
       pieceSpot[p1].dataset.piece === pieceSpot[p2].dataset.piece &&
       pieceSpot[p2].dataset.piece === pieceSpot[p3].dataset.piece
     ) {
-      console.log(`${pieceSpot[p1].dataset.piece} wins!`);
       declareWinner(pieceSpot[p1].dataset.piece);
     }
   });
