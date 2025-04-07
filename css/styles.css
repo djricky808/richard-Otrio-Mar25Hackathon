@@ -56,6 +56,10 @@ a:hover {
   border-radius: 10px;
 }
 
+#win-message {
+  z-index: 100;
+}
+
 .popup h1 {
   text-align: center;
 }
@@ -63,7 +67,8 @@ a:hover {
 .new-game,
 .cancel,
 #show-board,
-#return-to-menu {
+#return-to-menu,
+#skip-confirm {
   background-color: var(--off-grid-board-color);
   color: white;
   font-size: 30px;
@@ -92,7 +97,8 @@ a:hover {
 .new-game:hover,
 .cancel:hover,
 #show-board:hover,
-#return-to-menu:hover {
+#return-to-menu:hover,
+#skip-confirm:hover {
   background-color: var(--empty-ring-color);
   color: black;
 }

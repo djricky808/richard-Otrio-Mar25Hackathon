@@ -33,9 +33,15 @@ const pickAPieceMessage = document.getElementById("pick-a-piece");
 const winningMessageWindow = document.getElementById("win-message");
 const winningHeadline = document.querySelector("#win-message h1");
 const restartWarning = document.getElementById("restart-warning");
+const turnSkippedWarning = document.getElementById("skip-alert");
+const skippedMessage = document.getElementById("skip-message");
+const turn = document.getElementById("turn");
+
 const pieceCards = document.querySelectorAll(".piece-card");
 const pieceSpot = document.querySelectorAll(".piece-spot");
-const turn = document.getElementById("turn");
+const allPegs = document.querySelectorAll(".piece-spot.peg");
+const allSmallRings = document.querySelectorAll(".piece-spot.small-ring");
+const allLargeRings = document.querySelectorAll(".piece-spot.large-ring");
 
 const cancelBtn = document.querySelectorAll(".cancel");
 const newGameBtn = document.querySelectorAll(".new-game");
@@ -43,6 +49,7 @@ const tutorialBtn = document.getElementById("tutorial");
 const restartBtn = document.getElementById("restart");
 const returnToWinScreenBtn = document.getElementById("return-to-menu");
 const showBoardBtn = document.getElementById("show-board");
+const skipConfirmBtn = document.getElementById("skip-confirm");
 
 const bluePieces = document.querySelectorAll(".blue-side .blue-piece");
 const greenPieces = document.querySelectorAll(".green-side .green-piece");
@@ -54,6 +61,13 @@ const greenSide = document.querySelector(".green-side");
 const purpleSide = document.querySelector(".purple-side");
 const redSide = document.querySelector(".red-side");
 const sideColors = [blueSide, greenSide, purpleSide, redSide];
+
+const canThisColorMakeAMove = {
+  blue: true,
+  green: true,
+  red: true,
+  purple: true,
+};
 
 const winningPatterns = [
   //All 3 Pieces of the same color in 1 Square (Peg, Small ring, Large Ring)
@@ -131,15 +145,22 @@ showBoardBtn.addEventListener("click", () => {
   hideWinningMessageScreen(), showReturnToWinScreenBtn();
 });
 
+skipConfirmBtn.addEventListener("click", () => {
+  hideSkipAlert();
+  startNextPlayersTurn();
+});
+
 const startNewGame = () => {
   resetPiecesStock(piecesStock);
   clearBoard();
   enableRingCellSelection();
   resetStockStyles();
+  reactivateAllPlayers();
   playersTurn = 3;
   startNextPlayersTurn();
   winningMessageWindow.classList.add("hidden");
   hideRestartWarningScreen();
+  hideSkipAlert();
 };
 
 const resetPiecesStock = (piecesStock) => {
@@ -151,6 +172,12 @@ const resetPiecesStock = (piecesStock) => {
   }
   return piecesStock;
 };
+
+function reactivateAllPlayers() {
+  for (let color in canThisColorMakeAMove) {
+    canThisColorMakeAMove[color] = true;
+  }
+}
 
 function clearBoard() {
   for (let i = 0; i < pieceSpot.length; i++) {
@@ -182,8 +209,10 @@ pieceCards.forEach((piece, pieceIndex) => {
     checkForWins();
     if (!isThereAWin) {
       checkForADraw();
-      disableRingCellsThatAreFull();
-      startNextPlayersTurn();
+      if (!isGameADraw) {
+        disableRingCellsThatAreFull();
+        startNextPlayersTurn();
+      }
     }
   });
 });
@@ -289,6 +318,17 @@ function hideReturnToWinScreenBtn() {
   returnToWinScreenBtn.classList.add("hidden");
 }
 
+function showSkipAlert(color) {
+  turnSkippedWarning.classList.remove("hidden");
+  skippedMessage.innerHTML = `${
+    color[0].toUpperCase() + color.slice(1, color.length)
+  } is out of moves!`;
+}
+
+function hideSkipAlert() {
+  turnSkippedWarning.classList.add("hidden");
+}
+
 function placePieceOnBoard(cellIndex, pieceIndex, color) {
   let placeToPutPiece = 3 * cellIndex + pieceIndex;
   const pieceToLay = pieceSpot[placeToPutPiece];
@@ -310,6 +350,7 @@ function startNextPlayersTurn() {
   if (playersTurn === teamColors.length) {
     playersTurn = 0;
   }
+  checkIfAnyMovesLeft(teamColors[playersTurn]);
   turn.innerHTML = `${teamColors[playersTurn].toUpperCase()}'S TURN`;
   turn.style.color = `${teamColors[playersTurn]}`;
   sideColors[playersTurn].classList.add(`${teamColors[playersTurn]}-turn`);
@@ -318,6 +359,9 @@ function startNextPlayersTurn() {
     : sideColors[playersTurn - 1].classList.remove(
         `${teamColors[playersTurn - 1]}-turn`
       );
+  if (canThisColorMakeAMove[teamColors[playersTurn]] === false) {
+    showSkipAlert(teamColors[playersTurn]);
+  }
 }
 
 function checkForWins() {
@@ -421,5 +465,32 @@ function checkForADraw() {
   if ([...pieceSpot].every((spot) => spot.dataset.piece !== "open")) {
     isGameADraw = true;
     declareWinner("none");
+  }
+}
+
+function checkIfAnyMovesLeft(color) {
+  if (piecesStock[color]["peg"] === 0) {
+    if (
+      [...allLargeRings].every((spot) => spot.dataset.piece !== "open") &&
+      [...allSmallRings].every((spot) => spot.dataset.piece !== "open")
+    ) {
+      canThisColorMakeAMove[color] = false;
+    }
+  }
+  if (piecesStock[color]["small-ring"] === 0) {
+    if (
+      [...allLargeRings].every((spot) => spot.dataset.piece !== "open") &&
+      [...allPegs].every((spot) => spot.dataset.piece !== "open")
+    ) {
+      canThisColorMakeAMove[color] = false;
+    }
+  }
+  if (piecesStock[color]["large-ring"] === 0) {
+    if (
+      [...allPegs].every((spot) => spot.dataset.piece !== "open") &&
+      [...allSmallRings].every((spot) => spot.dataset.piece !== "open")
+    ) {
+      canThisColorMakeAMove[color] = false;
+    }
   }
 }
