@@ -156,6 +156,7 @@ const startNewGame = () => {
   enableRingCellSelection();
   resetStockStyles();
   reactivateAllPlayers();
+  resetTurnHighLights();
   playersTurn = 3;
   startNextPlayersTurn();
   winningMessageWindow.classList.add("hidden");
@@ -177,6 +178,12 @@ function reactivateAllPlayers() {
   for (let color in canThisColorMakeAMove) {
     canThisColorMakeAMove[color] = true;
   }
+}
+
+function resetTurnHighLights() {
+  sideColors.forEach((color, i) =>
+    color.classList.remove(`${teamColors[i]}-turn`)
+  );
 }
 
 function clearBoard() {

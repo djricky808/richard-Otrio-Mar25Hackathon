@@ -116,6 +116,9 @@ a:hover {
   width: 30%;
   height: 300px;
   background-color: gold;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .piece-card:disabled {
@@ -271,6 +274,22 @@ a:hover {
 
 .outer-open {
   border-color: var(--empty-ring-color);
+}
+
+.inner-black {
+  background-color: black;
+}
+
+.outer-black {
+  border-color: black;
+}
+
+.inner-faded {
+  background-color: rgb(255, 233, 70);
+}
+
+.outer-faded {
+  border-color: rgb(255, 233, 70);
 }
 
 .blue-turn {
