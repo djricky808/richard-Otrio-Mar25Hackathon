@@ -1,4 +1,4 @@
-let piecesStock = {
+const piecesStock = {
   blue: {
     peg: 3,
     "small-ring": 3,
@@ -24,6 +24,7 @@ let piecesStock = {
 const teamColors = ["blue", "green", "purple", "red"];
 let playersTurn = 3; //Start off with the blue player
 let selectedCell; //Assigns the cell to select
+let isThereAWin = false;
 let isGameADraw = false;
 
 //Query Selectors
@@ -127,10 +128,11 @@ showBoardBtn.addEventListener("click", () => {
 });
 
 const startNewGame = () => {
-  resetPiecesStock();
+  resetPiecesStock(piecesStock);
   clearBoard();
   enableRingCellSelection();
   resetStockStyles();
+  playersTurn = 3;
   startNextPlayersTurn();
   winningMessageWindow.classList.add("hidden");
   hideRestartWarningScreen();
@@ -174,8 +176,11 @@ pieceCards.forEach((piece, pieceIndex) => {
     hidePieceSelectScreen();
     placePieceOnBoard(selectedCell, pieceIndex, color);
     checkForWins();
-    disableRingCellsThatAreFull();
-    startNextPlayersTurn();
+    if (!isThereAWin) {
+      checkForADraw();
+      disableRingCellsThatAreFull();
+      startNextPlayersTurn();
+    }
   });
 });
 
@@ -322,11 +327,15 @@ function checkForWins() {
 
 function declareWinner(winningColor) {
   showWinningMessageScreen();
-  winningHeadline.innerHTML = `${
-    winningColor[0].toUpperCase() + winningColor.slice(1, winningColor.length)
-  } Wins!`;
+  winningHeadline.innerHTML = isGameADraw
+    ? "It's a Draw!"
+    : `${
+        winningColor[0].toUpperCase() +
+        winningColor.slice(1, winningColor.length)
+      } Wins!`;
   showShowBoardButton();
   disableAllRingCells();
+  turn.innerHTML = "";
 }
 
 function reduceStock(color, piece, index) {
@@ -401,5 +410,6 @@ function resetStockStyles() {
 function checkForADraw() {
   if ([...pieceSpot].every((spot) => spot.dataset.piece !== "open")) {
     isGameADraw = true;
+    declareWinner("none");
   }
 }
