@@ -50,6 +50,10 @@ const redPieces = document.querySelectorAll(".red-side .red-piece");
 const purplePieces = document.querySelectorAll(".purple-side .purple-piece");
 
 const blueSide = document.querySelector(".blue-side");
+const greenSide = document.querySelector(".green-side");
+const purpleSide = document.querySelector(".purple-side");
+const redSide = document.querySelector(".red-side");
+const sideColors = [blueSide, greenSide, purpleSide, redSide];
 
 const winningPatterns = [
   //All 3 Pieces of the same color in 1 Square (Peg, Small ring, Large Ring)
@@ -308,6 +312,12 @@ function startNextPlayersTurn() {
   }
   turn.innerHTML = `${teamColors[playersTurn].toUpperCase()}'S TURN`;
   turn.style.color = `${teamColors[playersTurn]}`;
+  sideColors[playersTurn].classList.add(`${teamColors[playersTurn]}-turn`);
+  playersTurn === 0
+    ? sideColors[3].classList.remove(`${teamColors[3]}-turn`)
+    : sideColors[playersTurn - 1].classList.remove(
+        `${teamColors[playersTurn - 1]}-turn`
+      );
 }
 
 function checkForWins() {

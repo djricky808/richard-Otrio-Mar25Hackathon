@@ -271,11 +271,11 @@ a:hover {
   border: 10px solid var(--blue);
 }
 .green-turn {
-  border: 10px solid var(--blue);
+  border: 10px solid var(--green);
 }
 .red-turn {
-  border: 10px solid var(--blue);
+  border: 10px solid var(--red);
 }
 .purple-turn {
-  border: 10px solid var(--blue);
+  border: 10px solid var(--purple);
 }
