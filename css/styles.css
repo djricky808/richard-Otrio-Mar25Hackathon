@@ -9,6 +9,7 @@
   --green: #2aff00;
   --red: #ff0f12;
   --blue: #00f8ff;
+  --blue-highlight: #011c63;
 }
 
 * {
@@ -60,7 +61,9 @@ a:hover {
 }
 
 .new-game,
-.cancel {
+.cancel,
+#show-board,
+#return-to-menu {
   background-color: var(--off-grid-board-color);
   color: white;
   font-size: 30px;
@@ -77,11 +80,19 @@ a:hover {
   transform: translate(-50%, -50%);
 }
 
+#show-board,
 .cancel {
   top: 80%;
 }
 
-#new-game:hover {
+#return-to-menu {
+  top: 75%;
+}
+
+.new-game:hover,
+.cancel:hover,
+#show-board:hover,
+#return-to-menu:hover {
   background-color: var(--empty-ring-color);
   color: black;
 }
@@ -254,4 +265,17 @@ a:hover {
 
 .outer-open {
   border-color: var(--empty-ring-color);
+}
+
+.blue-turn {
+  border: 10px solid var(--blue);
+}
+.green-turn {
+  border: 10px solid var(--blue);
+}
+.red-turn {
+  border: 10px solid var(--blue);
+}
+.purple-turn {
+  border: 10px solid var(--blue);
 }

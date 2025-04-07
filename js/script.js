@@ -21,9 +21,10 @@ let piecesStock = {
   },
 };
 
-let teamColors = ["blue", "green", "purple", "red"];
-let playersTurn = 0; //Start off with the blue player
+const teamColors = ["blue", "green", "purple", "red"];
+let playersTurn = 3; //Start off with the blue player
 let selectedCell; //Assigns the cell to select
+let isGameADraw = false;
 
 //Query Selectors
 const mainCells = document.querySelectorAll(".main-board .ring-cell");
@@ -33,16 +34,21 @@ const winningHeadline = document.querySelector("#win-message h1");
 const restartWarning = document.getElementById("restart-warning");
 const pieceCards = document.querySelectorAll(".piece-card");
 const pieceSpot = document.querySelectorAll(".piece-spot");
+const turn = document.getElementById("turn");
 
 const cancelBtn = document.querySelectorAll(".cancel");
 const newGameBtn = document.querySelectorAll(".new-game");
 const tutorialBtn = document.getElementById("tutorial");
 const restartBtn = document.getElementById("restart");
+const returnToWinScreenBtn = document.getElementById("return-to-menu");
+const showBoardBtn = document.getElementById("show-board");
 
 const bluePieces = document.querySelectorAll(".blue-side .blue-piece");
 const greenPieces = document.querySelectorAll(".green-side .green-piece");
 const redPieces = document.querySelectorAll(".red-side .red-piece");
 const purplePieces = document.querySelectorAll(".purple-side .purple-piece");
+
+const blueSide = document.querySelector(".blue-side");
 
 const winningPatterns = [
   //All 3 Pieces of the same color in 1 Square (Peg, Small ring, Large Ring)
@@ -112,12 +118,20 @@ newGameBtn.forEach((button) =>
 
 restartBtn.addEventListener("click", () => showRestartWarningScreen());
 
+returnToWinScreenBtn.addEventListener("click", () => {
+  showWinningMessageScreen(), hideReturnToWinScreenBtn();
+});
+
+showBoardBtn.addEventListener("click", () => {
+  hideWinningMessageScreen(), showReturnToWinScreenBtn();
+});
+
 const startNewGame = () => {
   resetPiecesStock();
   clearBoard();
   enableRingCellSelection();
   resetStockStyles();
-  playersTurn = 0;
+  startNextPlayersTurn();
   winningMessageWindow.classList.add("hidden");
   hideRestartWarningScreen();
 };
@@ -242,6 +256,30 @@ function hideRestartWarningScreen() {
   restartWarning.classList.add("hidden");
 }
 
+function showWinningMessageScreen() {
+  winningMessageWindow.classList.remove("hidden");
+}
+
+function hideWinningMessageScreen() {
+  winningMessageWindow.classList.add("hidden");
+}
+
+function showShowBoardButton() {
+  showBoardBtn.classList.remove("hidden");
+}
+
+function hideShowBoardButton() {
+  showBoardBtn.classList.add("hidden");
+}
+
+function showReturnToWinScreenBtn() {
+  returnToWinScreenBtn.classList.remove("hidden");
+}
+
+function hideReturnToWinScreenBtn() {
+  returnToWinScreenBtn.classList.add("hidden");
+}
+
 function placePieceOnBoard(cellIndex, pieceIndex, color) {
   let placeToPutPiece = 3 * cellIndex + pieceIndex;
   const pieceToLay = pieceSpot[placeToPutPiece];
@@ -263,6 +301,8 @@ function startNextPlayersTurn() {
   if (playersTurn === teamColors.length) {
     playersTurn = 0;
   }
+  turn.innerHTML = `${teamColors[playersTurn].toUpperCase()}'S TURN`;
+  turn.style.color = `${teamColors[playersTurn]}`;
 }
 
 function checkForWins() {
@@ -274,15 +314,18 @@ function checkForWins() {
       pieceSpot[p2].dataset.piece === pieceSpot[p3].dataset.piece
     ) {
       declareWinner(pieceSpot[p1].dataset.piece);
+      return;
     }
   });
+  checkForADraw();
 }
 
 function declareWinner(winningColor) {
-  winningMessageWindow.classList.remove("hidden");
+  showWinningMessageScreen();
   winningHeadline.innerHTML = `${
     winningColor[0].toUpperCase() + winningColor.slice(1, winningColor.length)
   } Wins!`;
+  showShowBoardButton();
   disableAllRingCells();
 }
 
@@ -353,4 +396,10 @@ function resetStockStyles() {
       piece.classList.contains("peg") ? "inner-red" : "outer-red"
     );
   });
+}
+
+function checkForADraw() {
+  if ([...pieceSpot].every((spot) => spot.dataset.piece !== "open")) {
+    isGameADraw = true;
+  }
 }
