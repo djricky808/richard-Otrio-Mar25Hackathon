@@ -462,7 +462,10 @@ function resetStockStyles() {
 }
 
 function checkForADraw() {
-  if ([...pieceSpot].every((spot) => spot.dataset.piece !== "open")) {
+  if (
+    [...pieceSpot].every((spot) => spot.dataset.piece !== "open") ||
+    Object.values(canThisColorMakeAMove).every((color) => !color)
+  ) {
     isGameADraw = true;
     declareWinner("none");
   }
