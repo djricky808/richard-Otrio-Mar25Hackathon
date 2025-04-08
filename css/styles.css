@@ -119,10 +119,12 @@ a:hover {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  cursor: pointer;
 }
 
 .piece-card:disabled {
   background-color: gray;
+  cursor: not-allowed;
 }
 
 .gameboard {
@@ -290,6 +292,16 @@ a:hover {
 
 .outer-faded {
   border-color: rgb(255, 233, 70);
+}
+
+.piece-card:disabled .inner-black,
+.piece-card:disabled .inner-faded {
+  background-color: rgb(167, 167, 167);
+}
+
+.piece-card:disabled .outer-black,
+.piece-card:disabled .outer-faded {
+  border-color: rgb(167, 167, 167);
 }
 
 .blue-turn {
