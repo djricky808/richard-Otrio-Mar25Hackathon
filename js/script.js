@@ -162,7 +162,6 @@ skipConfirmBtn.addEventListener("click", () => {
 });
 
 tutorialBtn.addEventListener("click", () => {
-  console.log("I got clicked here");
   showTutorialWindow();
   changeTutorialSlide("start");
 });
@@ -232,7 +231,6 @@ function clearBoard() {
 
 function resetPieceSelection() {
   pieceCards.forEach((card) => {
-    console.log(pieceCards);
     card.disabled = false;
   });
 }
@@ -305,7 +303,6 @@ function disableRingCellsThatAreFull() {
       pieceSpot[currentCell + 1].dataset.piece !== "open" &&
       pieceSpot[currentCell + 2].dataset.piece !== "open"
     ) {
-      console.log(cell, "disabled");
       cell.style.pointerEvents = "none";
     }
   });
@@ -335,18 +332,13 @@ function enableMenuButtons() {
 
 function disablePieceSelection(color) {
   let currentCell = selectedCell * 3;
-  console.log("disabled cell", currentCell);
   for (let i = 0; i < pieceCards.length; i++) {
-    console.log(pieceSpot[currentCell + i].dataset.piece);
-    console.log(pieceCards[i]);
     if (pieceSpot[currentCell + i].dataset.piece !== "open") {
-      console.log("Spot is already occupied!");
       pieceCards[i].disabled = true;
     }
   }
   let pieceIndex = 0;
   for (let stock in piecesStock[color]) {
-    console.log(piecesStock[color][stock]);
     if (piecesStock[color][stock] === 0) {
       pieceCards[pieceIndex].disabled = true;
     }
@@ -416,7 +408,6 @@ function placePieceOnBoard(cellIndex, pieceIndex, color) {
   let placeToPutPiece = 3 * cellIndex + pieceIndex;
   const pieceToLay = pieceSpot[placeToPutPiece];
   pieceToLay.dataset.piece = color;
-  console.log(pieceCards[pieceIndex]);
   if (pieceCards[pieceIndex].dataset.chosenpiece === "peg") {
     pieceToLay.classList.remove("inner-open");
     pieceToLay.classList.add(`inner-${color}`);
@@ -478,9 +469,7 @@ function declareWinner(winningColor) {
 
 function reduceStock(color, piece, index) {
   let removed = index + 1 + 3 * piecesStock[color][piece] - 4;
-  console.log("Removed", removed);
   piecesStock[color][piece]--;
-  console.log(bluePieces[removed]);
   if (color === "blue") {
     bluePieces[removed].classList.remove(
       index === 0 ? "inner-blue" : "outer-blue"
@@ -548,7 +537,6 @@ function checkIfAnyMovesLeft(color) {
 }
 
 function changeTutorialSlide(direction) {
-  console.log(direction, tutorialSlideIndex);
   if (direction === "start") {
     tutorialSlideIndex = 0;
   }
