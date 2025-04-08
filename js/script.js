@@ -27,22 +27,33 @@ let selectedCell; //Assigns the cell to select
 let isThereAWin = false;
 let isGameADraw = false;
 
+const canThisColorMakeAMove = {
+  blue: true,
+  green: true,
+  red: true,
+  purple: true,
+};
+
 //Query Selectors
-const mainCells = document.querySelectorAll(".main-board .ring-cell");
+//Popup Windows
 const pickAPieceMessage = document.getElementById("pick-a-piece");
 const winningMessageWindow = document.getElementById("win-message");
-const winningHeadline = document.querySelector("#win-message h1");
+const tutorialWindow = document.getElementById("tutorial-window");
 const restartWarning = document.getElementById("restart-warning");
 const turnSkippedWarning = document.getElementById("skip-alert");
+//Headlines for Popups
+const winningHeadline = document.querySelector("#win-message h1");
 const skippedMessage = document.getElementById("skip-message");
+//Whose turn it is headline
 const turn = document.getElementById("turn");
-
+//Gameboard
+const mainCells = document.querySelectorAll(".main-board .ring-cell");
 const pieceCards = document.querySelectorAll(".piece-card");
 const pieceSpot = document.querySelectorAll(".piece-spot");
 const allPegs = document.querySelectorAll(".piece-spot.peg");
 const allSmallRings = document.querySelectorAll(".piece-spot.small-ring");
 const allLargeRings = document.querySelectorAll(".piece-spot.large-ring");
-
+//Buttons
 const cancelBtn = document.querySelectorAll(".cancel");
 const newGameBtn = document.querySelectorAll(".new-game");
 const tutorialBtn = document.getElementById("tutorial");
@@ -50,24 +61,19 @@ const restartBtn = document.getElementById("restart");
 const returnToWinScreenBtn = document.getElementById("return-to-menu");
 const showBoardBtn = document.getElementById("show-board");
 const skipConfirmBtn = document.getElementById("skip-confirm");
-
+const previousBtn = document.getElementById("previous-slide");
+const nextBtn = document.getElementById("next-slide");
+//Players Pieces
 const bluePieces = document.querySelectorAll(".blue-side .blue-piece");
 const greenPieces = document.querySelectorAll(".green-side .green-piece");
 const redPieces = document.querySelectorAll(".red-side .red-piece");
 const purplePieces = document.querySelectorAll(".purple-side .purple-piece");
-
+//Players Side of the Board
 const blueSide = document.querySelector(".blue-side");
 const greenSide = document.querySelector(".green-side");
 const purpleSide = document.querySelector(".purple-side");
 const redSide = document.querySelector(".red-side");
 const sideColors = [blueSide, greenSide, purpleSide, redSide];
-
-const canThisColorMakeAMove = {
-  blue: true,
-  green: true,
-  red: true,
-  purple: true,
-};
 
 const winningPatterns = [
   //All 3 Pieces of the same color in 1 Square (Peg, Small ring, Large Ring)
