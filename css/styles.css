@@ -50,6 +50,14 @@ h1 {
   border-radius: 10px;
 }
 
+#tutorial-window img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 60%;
+}
+
 #win-message {
   z-index: 100;
 }
@@ -99,6 +107,26 @@ h1 {
   width: 100%;
 }
 
+#previous-slide,
+#next-slide {
+  top: 50%;
+  width: 20%;
+}
+
+#previous-slide {
+  left: 12%;
+}
+
+#next-slide {
+  left: 88%;
+}
+
+#exit-tutorial {
+  top: 5%;
+  left: 85%;
+  width: 30%;
+}
+
 button:hover {
   background-color: var(--empty-ring-color);
   color: black;
@@ -130,7 +158,9 @@ button:hover {
 
 .piece-card:disabled,
 #tutorial:disabled,
-#restart:disabled {
+#restart:disabled,
+#previous-slide:disabled,
+#next-slide:disabled {
   background-color: gray;
   cursor: not-allowed;
 }
