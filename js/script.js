@@ -26,6 +26,7 @@ let playersTurn = 3; //Start off with the blue player
 let selectedCell; //Assigns the cell to select
 let isThereAWin = false;
 let isGameADraw = false;
+let tutorialSlideIndex = 0;
 
 const canThisColorMakeAMove = {
   blue: true,
@@ -44,6 +45,8 @@ const turnSkippedWarning = document.getElementById("skip-alert");
 //Headlines for Popups
 const winningHeadline = document.querySelector("#win-message h1");
 const skippedMessage = document.getElementById("skip-message");
+//Slide for tutorial
+const tutorialSlide = document.getElementById("tutorial-slide");
 //Whose turn it is headline
 const turn = document.getElementById("turn");
 //Gameboard
@@ -135,6 +138,8 @@ const winningPatterns = [
   [20, 13, 6],
 ];
 
+//Button Event Listeners
+
 newGameBtn.forEach((button) =>
   button.addEventListener("click", () => {
     startNewGame();
@@ -156,6 +161,24 @@ skipConfirmBtn.addEventListener("click", () => {
   startNextPlayersTurn();
 });
 
+tutorialBtn.addEventListener("click", () => {
+  console.log("I got clicked here");
+  showTutorialWindow();
+  changeTutorialSlide("start");
+});
+
+previousBtn.addEventListener("click", () => changeTutorialSlide("previous"));
+
+nextBtn.addEventListener("click", () => changeTutorialSlide("next"));
+
+cancelBtn.forEach((button) => {
+  button.addEventListener("click", () => {
+    hidePieceSelectScreen();
+    hideRestartWarningScreen();
+    hideTutorialWindow();
+  });
+});
+
 const startNewGame = () => {
   resetPiecesStock(piecesStock);
   clearBoard();
@@ -169,6 +192,7 @@ const startNewGame = () => {
   winningMessageWindow.classList.add("hidden");
   hideRestartWarningScreen();
   hideSkipAlert();
+  hideTutorialWindow();
 };
 
 const resetPiecesStock = (piecesStock) => {
@@ -204,6 +228,48 @@ function clearBoard() {
         : "large-ring"
     } ${(i + 3) % 3 === 0 ? "inner-open" : "outer-open"}`;
   }
+}
+
+function resetPieceSelection() {
+  pieceCards.forEach((card) => {
+    console.log(pieceCards);
+    card.disabled = false;
+  });
+}
+
+function resetStockStyles() {
+  bluePieces.forEach((piece) => {
+    piece.classList.remove(
+      piece.classList.contains("peg") ? "inner-open" : "outer-open"
+    );
+    piece.classList.add(
+      piece.classList.contains("peg") ? "inner-blue" : "outer-blue"
+    );
+  });
+  greenPieces.forEach((piece) => {
+    piece.classList.remove(
+      piece.classList.contains("peg") ? "inner-open" : "outer-open"
+    );
+    piece.classList.add(
+      piece.classList.contains("peg") ? "inner-green" : "outer-green"
+    );
+  });
+  purplePieces.forEach((piece) => {
+    piece.classList.remove(
+      piece.classList.contains("peg") ? "inner-open" : "outer-open"
+    );
+    piece.classList.add(
+      piece.classList.contains("peg") ? "inner-purple" : "outer-purple"
+    );
+  });
+  redPieces.forEach((piece) => {
+    piece.classList.remove(
+      piece.classList.contains("peg") ? "inner-open" : "outer-open"
+    );
+    piece.classList.add(
+      piece.classList.contains("peg") ? "inner-red" : "outer-red"
+    );
+  });
 }
 
 mainCells.forEach((cell, cellIndex) => {
@@ -288,20 +354,6 @@ function disablePieceSelection(color) {
   }
 }
 
-function resetPieceSelection() {
-  pieceCards.forEach((card) => {
-    console.log(pieceCards);
-    card.disabled = false;
-  });
-}
-
-cancelBtn.forEach((button) => {
-  button.addEventListener("click", () => {
-    hidePieceSelectScreen();
-    hideRestartWarningScreen();
-  });
-});
-
 function showPieceSelectScreen() {
   pickAPieceMessage.classList.remove("hidden");
 }
@@ -342,6 +394,13 @@ function hideReturnToWinScreenBtn() {
   returnToWinScreenBtn.classList.add("hidden");
 }
 
+function showTutorialWindow() {
+  tutorialWindow.classList.remove("hidden");
+}
+
+function hideTutorialWindow() {
+  tutorialWindow.classList.add("hidden");
+}
 function showSkipAlert(color) {
   turnSkippedWarning.classList.remove("hidden");
   skippedMessage.innerHTML = `${
@@ -451,41 +510,6 @@ function reduceStock(color, piece, index) {
   }
 }
 
-function resetStockStyles() {
-  bluePieces.forEach((piece) => {
-    piece.classList.remove(
-      piece.classList.contains("peg") ? "inner-open" : "outer-open"
-    );
-    piece.classList.add(
-      piece.classList.contains("peg") ? "inner-blue" : "outer-blue"
-    );
-  });
-  greenPieces.forEach((piece) => {
-    piece.classList.remove(
-      piece.classList.contains("peg") ? "inner-open" : "outer-open"
-    );
-    piece.classList.add(
-      piece.classList.contains("peg") ? "inner-green" : "outer-green"
-    );
-  });
-  purplePieces.forEach((piece) => {
-    piece.classList.remove(
-      piece.classList.contains("peg") ? "inner-open" : "outer-open"
-    );
-    piece.classList.add(
-      piece.classList.contains("peg") ? "inner-purple" : "outer-purple"
-    );
-  });
-  redPieces.forEach((piece) => {
-    piece.classList.remove(
-      piece.classList.contains("peg") ? "inner-open" : "outer-open"
-    );
-    piece.classList.add(
-      piece.classList.contains("peg") ? "inner-red" : "outer-red"
-    );
-  });
-}
-
 function checkForADraw() {
   if (
     [...pieceSpot].every((spot) => spot.dataset.piece !== "open") ||
@@ -521,4 +545,30 @@ function checkIfAnyMovesLeft(color) {
       canThisColorMakeAMove[color] = false;
     }
   }
+}
+
+function changeTutorialSlide(direction) {
+  console.log(direction, tutorialSlideIndex);
+  if (direction === "start") {
+    tutorialSlideIndex = 0;
+  }
+  if (direction === "previous") {
+    tutorialSlideIndex -= 1;
+  }
+  if (direction === "next") {
+    tutorialSlideIndex += 1;
+  }
+  if (tutorialSlideIndex === 0) {
+    previousBtn.disabled = true;
+  } else {
+    previousBtn.disabled = false;
+  }
+
+  if (tutorialSlideIndex === 8) {
+    nextBtn.disabled = true;
+  } else {
+    nextBtn.disabled = false;
+  }
+
+  tutorialSlide.innerHTML = `<img src="tutorial-images/OtrioTutorial${tutorialSlideIndex}.png" alt="Otrio-tutorial-slide-${tutorialSlideIndex}">`;
 }
