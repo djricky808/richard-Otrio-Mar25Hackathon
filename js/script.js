@@ -425,7 +425,7 @@ function startNextPlayersTurn() {
     playersTurn = 0;
   }
   checkIfAnyMovesLeft(teamColors[playersTurn]);
-  turn.innerHTML = `${teamColors[playersTurn].toUpperCase()}'S TURN`;
+  turn.innerHTML = `${teamColors[playersTurn].toUpperCase()}'S <br> TURN`;
   turn.style.color = `${teamColors[playersTurn]}`;
   sideColors[playersTurn].classList.add(`${teamColors[playersTurn]}-turn`);
   playersTurn === 0
@@ -450,7 +450,6 @@ function checkForWins() {
       return;
     }
   });
-  checkForADraw();
 }
 
 function declareWinner(winningColor) {
@@ -461,10 +460,10 @@ function declareWinner(winningColor) {
         winningColor[0].toUpperCase() +
         winningColor.slice(1, winningColor.length)
       } Wins!`;
+  turn.innerHTML = "";
   showShowBoardButton();
   disableAllRingCells();
   disableMenuButtons();
-  turn.innerHTML = "";
 }
 
 function reduceStock(color, piece, index) {
