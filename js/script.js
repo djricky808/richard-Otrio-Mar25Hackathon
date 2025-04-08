@@ -154,6 +154,7 @@ const startNewGame = () => {
   resetPiecesStock(piecesStock);
   clearBoard();
   enableRingCellSelection();
+  enableMenuButtons();
   resetStockStyles();
   reactivateAllPlayers();
   resetTurnHighLights();
@@ -248,6 +249,16 @@ function enableRingCellSelection() {
   mainCells.forEach((cell) => {
     cell.style.pointerEvents = "auto";
   });
+}
+
+function disableMenuButtons() {
+  tutorialBtn.disabled = true;
+  restartBtn.disabled = true;
+}
+
+function enableMenuButtons() {
+  tutorialBtn.disabled = false;
+  restartBtn.disabled = false;
 }
 
 function disablePieceSelection(color) {
@@ -396,6 +407,7 @@ function declareWinner(winningColor) {
       } Wins!`;
   showShowBoardButton();
   disableAllRingCells();
+  disableMenuButtons();
   turn.innerHTML = "";
 }
 
