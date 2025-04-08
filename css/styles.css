@@ -9,7 +9,6 @@
   --green: #2aff00;
   --red: #ff0f12;
   --blue: #00f8ff;
-  --blue-highlight: #011c63;
 }
 
 * {
@@ -28,20 +27,15 @@ header {
   margin: 10px 50px;
 }
 
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15%;
+}
+
 h1 {
   font-size: 72px;
   font-weight: 800;
-}
-
-a {
-  text-decoration: none;
-  font-weight: 800;
-  color: black;
-  font-size: 30px;
-}
-
-a:hover {
-  color: blue;
 }
 
 .popup {
@@ -64,6 +58,7 @@ a:hover {
   text-align: center;
 }
 
+.menu-buttons button,
 .new-game,
 .cancel,
 #show-board,
@@ -85,22 +80,33 @@ a:hover {
   transform: translate(-50%, -50%);
 }
 
+#tutorial,
+#restart {
+  position: relative;
+  width: 20vw;
+  font-size: 20px;
+  font-weight: 500;
+  top: 20%;
+}
+
 #show-board,
 .cancel {
   top: 80%;
 }
 
 #return-to-menu {
-  top: 75%;
+  top: 95%;
+  width: 100%;
 }
 
-.new-game:hover,
-.cancel:hover,
-#show-board:hover,
-#return-to-menu:hover,
-#skip-confirm:hover {
+button:hover {
   background-color: var(--empty-ring-color);
   color: black;
+}
+
+#tutorial:disabled:hover,
+#restart:disabled:hover {
+  color: white;
 }
 
 .hidden {
@@ -122,7 +128,9 @@ a:hover {
   cursor: pointer;
 }
 
-.piece-card:disabled {
+.piece-card:disabled,
+#tutorial:disabled,
+#restart:disabled {
   background-color: gray;
   cursor: not-allowed;
 }
